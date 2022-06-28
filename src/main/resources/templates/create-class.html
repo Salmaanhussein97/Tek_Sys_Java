@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Class</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link th:href="@{/css/sidebar.css}" rel="stylesheet"/>
+</head>
+<body style="background-color: ghostwhite;font-family: cursive">
+<div class="sidebar">
+    <img src="https://i.pinimg.com/originals/0e/c8/c2/0ec8c2e87276d6e306a50b6843eaf2b0.jpg"
+         alt="logo" width="200" height="120">
+    <a th:href="@{/tutor/{tutorId}(tutorId=${tutorId})}">Home</a>
+    <a class="active" th:href="@{/tutor/{tutorId}(tutorId=${tutorId})}">Classes</a>
+    <a th:href="@{/lessons/list/{tutorId}(tutorId=${tutorId})}">All Lessons</a>
+    <a th:href="@{/logout}" style="color: red">Logout</a>
+</div>
+<div class="content">
+    <div class="jumbotron jumbotron-fluid" style="background-color: ghostwhite">
+        <div class="container">
+            <h1 style="text-align: center; font-family: fantasy;" class="login">Welcome to Create Class form</h1>
+            <hr>
+            <form th:action="@{/tutor/class/add/{tutorId}(tutorId=${tutorId})}" th:object="${classObject}" method="post"
+                  class="form">
+                <div class="form-group">
+                    <label for="className">Name</label>
+                    <input class="form-control" type="text" th:field="*{className}" id="className" placeholder="Class Name"
+                           required>
+                    <div class="alert alert-warning" th:if="${#fields.hasErrors('className')}"
+                         th:errors="*{className}"></div>
+                </div>
+                <div class="form-group">
+                    <label for="daysPerWeek">Days Per Week</label>
+                    <input class="form-control" type="text" th:field="*{daysPerWeek}" id="daysPerWeek"
+                           placeholder="Days per Week" required>
+                    <div class="alert alert-warning" th:if="${#fields.hasErrors('daysPerWeek')}"
+                         th:errors="*{daysPerWeek}"></div>
+                </div>
+                <div class="form-group">
+                    <label for="classTime">Class Time</label>
+                    <input type="time" th:field="*{classTime}" id="classTime" placeholder="hrs:mins" class="form-control"
+                           required>
+                </div>
+                <input type="submit" class="btn btn-success">
+            </form>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

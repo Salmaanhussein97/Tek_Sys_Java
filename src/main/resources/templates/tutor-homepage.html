@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Tutor Homepage</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link th:href="@{/css/sidebar.css}" rel="stylesheet"/>
+</head>
+<body style="background-color: ghostwhite;font-family: cursive">
+<div class="sidebar">
+    <img src="https://i.pinimg.com/originals/0e/c8/c2/0ec8c2e87276d6e306a50b6843eaf2b0.jpg"
+         alt="logo" width="200" height="120">
+    <a class="active" th:href="@{/tutor/{tutorId}(tutorId=${tutorId})}">Home</a>
+    <a th:href="@{/tutor/{tutorId}(tutorId=${tutorId})}">Classes</a>
+    <a th:href="@{/lessons/list/{tutorId}(tutorId=${tutorId})}">All Lessons</a>
+    <a th:href="@{/logout}" style="color: red">Logout</a>
+</div>
+<div class="content">
+    <div class="jumbotron jumbotron-fluid" style="background-color: ghostwhite">
+        <div class="container">
+            <h1 style="text-align: center; font-family: fantasy;" class="login">Welcome to Tutor Homepage</h1>
+            <hr>
+            <a th:href="@{/tutor/class/create/{tutorId}(tutorId=${tutorId})}"
+               class="btn btn-primary">Create Class
+            </a>
+            <hr>
+            <table border="2" class="table table-bordered table-responsive-md">
+                <thead>
+                <tr>
+                    <th>Class Id</th>
+                    <th>Class Name</th>
+                    <th>Class Time</th>
+                    <th>Week Per Days</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="tutorClass : ${tutorClasses}">
+                    <td th:text="${tutorClass.classId}"></td>
+                    <td th:text="${tutorClass.className}"></td>
+                    <td th:text="${tutorClass.classTime}"></td>
+                    <td th:text="${tutorClass.daysPerWeek}"></td>
+                    <td>
+                        <a th:href="@{/tutor/lesson/create/{tutorId}/{classId}(tutorId=${tutorId},classId=${tutorClass.classId})}"
+                           class="btn btn-info">Create Lesson</a>
+                        <a th:href="@{/tutor/lesson/view/{tutorId}/{classId}(tutorId=${tutorId},classId=${tutorClass.classId})}"
+                           class="btn btn-primary">View Lessons</a>
+                        <a th:href="@{/tutor/ViewClassStudents/{tutorId}/{classId}(tutorId=${tutorId},classId=${tutorClass.classId})}"
+                           class="btn btn-primary">View Students</a>
+                        <a th:href="@{/tutor/cancel/class/{tutorId}/{classId}(tutorId=${tutorId},classId=${tutorClass.classId})}"
+                           class="btn btn-danger">Cancel Class</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
